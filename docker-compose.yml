@@ -8,6 +8,10 @@ volumes:
   redis:
     driver: local
 
+networks:
+  owncloud:
+    driver: bridge
+
 services:
   owncloud:
     image: owncloud/server:${OWNCLOUD_VERSION}
@@ -38,6 +42,8 @@ services:
       retries: 5
     volumes:
       - files:/mnt/data
+    networks:
+      - owncloud
 
   mariadb:
     image: mariadb:10.6 # minimum required ownCloud version is 10.9
@@ -68,6 +74,8 @@ services:
       retries: 5
     volumes:
       - mysql:/var/lib/mysql
+    networks:
+      - owncloud
 
   redis:
     image: redis:6
@@ -81,6 +89,8 @@ services:
       retries: 5
     volumes:
       - redis:/data
+    networks:
+      - owncloud
 
   tunnel:
     container_name: owncloud_cloudflared-tunnel
