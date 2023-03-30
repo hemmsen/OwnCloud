@@ -83,7 +83,7 @@ services:
       - redis:/data
 
   tunnel:
-    container_name: cloudflared-tunnel
+    container_name: owncloud_cloudflared-tunnel
     image: cloudflare/cloudflared
     restart: unless-stopped
     command: tunnel run
